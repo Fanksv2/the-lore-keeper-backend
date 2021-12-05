@@ -6,9 +6,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("./src/routes/auth");
 const user = require("./src/routes/user");
+const campaign = require("./src/routes/campaign");
+const world = require("./src/routes/world");
+const location = require("./src/routes/location");
+const npc = require("./src/routes/npc");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.status(200).json({ msg: "OPA" });
@@ -16,6 +22,10 @@ app.get("/", (req, res) => {
 
 app.use("/auth", auth);
 app.use("/user", user);
+app.use("/campaign", campaign);
+app.use("/world", world);
+app.use("/location", location);
+app.use("/npc", npc);
 
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;

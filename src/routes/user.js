@@ -9,7 +9,7 @@ require("dotenv").config();
 //Test: fanksv23
 //id = 6186cb7bcd98d46841c2f548
 
-router.get("/:id", validadeToken, async (req, res) => {
+router.get("/", validadeToken, async (req, res) => {
     const id = req.params.id;
     const { user } = req.user;
     return res.status(200).json(user);

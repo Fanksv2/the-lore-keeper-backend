@@ -56,13 +56,14 @@ router.post("/login", async (req, res) => {
     const secret = process.env.SECRET;
 
     //The user will be used for the token, so it cant have the password
-    let userToToken = { ...user }._doc;
+    const userToToken = { ...user }._doc;
     delete userToToken.password;
     delete userToToken.login;
-    console.log(userToToken);
+    userToToken._id = user._id;
+
     const token = await jwt.sign({ user: userToToken }, secret);
 
-    return res.status(200).json({ msg: "Sucess", token });
+    return res.status(200).json({ msg: "Sucess", token, user: userToToken });
 });
 
 async function validateLogin({ login, password }) {
