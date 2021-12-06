@@ -31,7 +31,7 @@ const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;
 
 mongoose
-    .connect(`mongodb://192.168.0.120/thelorekeeper`, {
+    .connect(process.env.DB_IP, {
         useNewUrlParser: true,
         user: dbUser,
         pass: dbPassword,
