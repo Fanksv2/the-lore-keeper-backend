@@ -32,8 +32,9 @@ const Campaign = mongoose.model("Campaign", {
             {
                 _id: mongoose.Schema.ObjectId,
                 name: String,
-                exterior: String,
-                interior: String,
+                occupation: String,
+                description: String,
+                personality: String,
             },
         ],
     },

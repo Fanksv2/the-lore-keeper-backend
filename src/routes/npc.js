@@ -35,4 +35,32 @@ router.post("/", validadeToken, getCampaign, async (req, res) => {
     return res.status(200).json({ npc });
 });
 
+router.put("/", validadeToken, getCampaign, async (req, res) => {
+    let { npc } = req.body;
+    npc = {
+        ...npc,
+        _id: new mongoose.Types.ObjectId(npc._id),
+    };
+
+    const { _id } = npc;
+    const { campaign } = req;
+
+    const npcIndex = campaign.content.npcs.findIndex((npc) => {
+        return npc._id.equals(new mongoose.Types.ObjectId(_id));
+    });
+
+    //findIndex returns -1 when didnt find anything
+    if (npcIndex < 0) {
+        return res.status(400).json({ msg: "Não encontrado" });
+    }
+
+    campaign.content.npcs[npcIndex] = npc;
+
+    await Campaign.findOneAndUpdate({ _id: campaign._id }, campaign, {
+        new: true,
+    });
+
+    return res.status(200).json({ npc });
+});
+
 module.exports = router;
