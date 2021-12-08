@@ -37,6 +37,16 @@ const Campaign = mongoose.model("Campaign", {
                 personality: String,
             },
         ],
+        cities: [
+            {
+                _id: mongoose.Schema.ObjectId,
+                name: String,
+                size: String,
+                government: String,
+                // pointsOfInterest: String,
+                // npcs: String,
+            },
+        ]
     },
 });
 

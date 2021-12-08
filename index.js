@@ -10,6 +10,7 @@ const campaign = require("./src/routes/campaign");
 const world = require("./src/routes/world");
 const location = require("./src/routes/location");
 const npc = require("./src/routes/npc");
+const city = require("./src/routes/city");
 const cors = require("cors");
 
 const app = express();
@@ -26,6 +27,7 @@ app.use("/campaign", campaign);
 app.use("/world", world);
 app.use("/location", location);
 app.use("/npc", npc);
+app.use("/city", city);
 
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASS;
