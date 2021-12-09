@@ -26,6 +26,7 @@ const Campaign = mongoose.model("Campaign", {
                 name: String,
                 surroundingArea: String,
                 description: String,
+                link: mongoose.Schema.ObjectId,
             },
         ],
         npcs: [
@@ -35,6 +36,7 @@ const Campaign = mongoose.model("Campaign", {
                 occupation: String,
                 description: String,
                 personality: String,
+                link: mongoose.Schema.ObjectId,
             },
         ],
         cities: [
@@ -43,10 +45,9 @@ const Campaign = mongoose.model("Campaign", {
                 name: String,
                 size: String,
                 government: String,
-                // pointsOfInterest: String,
-                // npcs: String,
+                link: mongoose.Schema.ObjectId,
             },
-        ]
+        ],
     },
 });
 

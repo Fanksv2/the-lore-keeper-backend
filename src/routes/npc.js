@@ -23,6 +23,10 @@ router.post("/", validadeToken, getCampaign, async (req, res) => {
     const { npc } = req.body;
     npc._id = new mongoose.Types.ObjectId();
 
+    if (npc.link) {
+        npc.link = new mongoose.Types.ObjectId();
+    }
+
     const { campaign } = req;
     campaign.content.npcs.push(npc);
 
@@ -40,6 +44,7 @@ router.put("/", validadeToken, getCampaign, async (req, res) => {
     npc = {
         ...npc,
         _id: new mongoose.Types.ObjectId(npc._id),
+        link: new mongoose.Types.ObjectId(npc.link),
     };
 
     const { _id } = npc;
