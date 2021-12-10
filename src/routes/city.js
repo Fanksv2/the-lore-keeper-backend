@@ -22,6 +22,9 @@ router.post("/", validadeToken, getCampaign, async (req, res) => {
 
     const { city } = req.body;
     city._id = new mongoose.Types.ObjectId();
+    if (city.link) {
+        city.link = new mongoose.Types.ObjectId();
+    }
 
     const campaign = req.campaign;
     campaign.content.cities.push(city);
@@ -42,6 +45,7 @@ router.put("/", validadeToken, getCampaign, async (req, res) => {
     city = {
         ...city,
         _id: new mongoose.Types.ObjectId(city._id),
+        link: new mongoose.Types.ObjectId(city.link),
     };
 
     const { _id } = city;
