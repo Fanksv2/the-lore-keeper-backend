@@ -65,4 +65,33 @@ router.put("/", validadeToken, getCampaign, async (req, res) => {
     return res.status(200).json({ location });
 });
 
+router.delete("/", validadeToken, getCampaign, async (req, res) => {
+    console.log("Requisicao: " + req);
+    let { location } = req.body;
+    location = {
+        ...location,
+        _id: new mongoose.Types.ObjectId(location._id),
+    };
+
+    const { _id } = location;
+    const { campaign } = req;
+
+    const locationIndex = campaign.content.locations.findIndex((location) => {
+        return location._id.equals(new mongoose.Types.ObjectId(_id));
+    });
+
+    //findIndex returns -1 when didnt find anything
+    if (locationIndex < 0) {
+        return res.status(400).json({ msg: "Não encontrado" });
+    }
+
+    campaign.content.locations.pull(location);
+
+    await Campaign.findOneAndUpdate({ _id: campaign._id }, campaign, {
+        new: true,
+    });
+
+    return res.status(200).json({ location });
+});
+
 module.exports = router;

@@ -63,4 +63,33 @@ router.put("/", validadeToken, getCampaign, async (req, res) => {
     return res.status(200).json({ world });
 });
 
+router.delete("/", validadeToken, getCampaign, async (req, res) => {
+    console.log("Requisicao: " + req);
+    let { world } = req.body;
+    world = {
+        ...world,
+        _id: new mongoose.Types.ObjectId(world._id),
+    };
+
+    const { _id } = world;
+    const { campaign } = req;
+
+    const worldIndex = campaign.content.worlds.findIndex((world) => {
+        return world._id.equals(new mongoose.Types.ObjectId(_id));
+    });
+
+    //findIndex returns -1 when didnt find anything
+    if (worldIndex < 0) {
+        return res.status(400).json({ msg: "Não encontrado" });
+    }
+
+    campaign.content.worlds.pull(world);
+
+    await Campaign.findOneAndUpdate({ _id: campaign._id }, campaign, {
+        new: true,
+    });
+
+    return res.status(200).json({ world });
+});
+
 module.exports = router;
