@@ -39,7 +39,7 @@ router.post("/", validadeToken, async (req, res) => {
 
     try {
         await newCampaign.save();
-        return res.status(201).json({ msg: "Sucesso" });
+        return res.status(201).json({ campaign:newCampaign });
     } catch (err) {
         return res.status(500);
     }
